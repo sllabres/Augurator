@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
   <testsuite name="C:\Development\Augurator\Augurator.Web\JsTests\Basic.Tests.js" tests="1" failures="0" time="19">
-    <testcase name="Given empty test:Empty test" />
+    <testcase name="Given true test:True test" />
   </testsuite>
 </testsuites>

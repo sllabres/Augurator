@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>google.maps.d.ts</id>
+    <version>1.0.10</version>
+    <title>Google Maps v3 - TypeScript Definition</title>
+    <authors>Esben Nepper</authors>
+    <owners>Esben Nepper</owners>
+    <licenseUrl>https://github.com/eNepper/Google-Maps-TypeScript-typing/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/eNepper/Google-Maps-TypeScript-typing.git</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Google Maps API v3 TypeScript Definition file.</description>
+    <releaseNotes />
+    <copyright>Folia A/S - 2012</copyright>
+    <language />
+    <tags>TypeScript Google Maps v3</tags>
+    <references />
+  </metadata>
+</package>

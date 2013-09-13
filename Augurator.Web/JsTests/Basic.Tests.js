@@ -1,6 +1,6 @@
 ﻿///<reference path="qunit.js" />
-QUnit.module("Given empty test");
+QUnit.module("Given true test");
 
-test("Empty test", function () {   
+test("True test", function () {   
     ok(true);
 });
