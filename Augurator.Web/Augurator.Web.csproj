@@ -137,6 +137,8 @@
     <None Include="JsTests\Basic.Tests.js" />
     <None Include="JsTests\qunit.d.ts" />
     <None Include="JsTests\qunit.js" />
+    <TypeScriptCompile Include="Scripts\GoogleMaps.ts" />
+    <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="typings\google.maps.d.ts" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -149,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="App_Themes\Default\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +192,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
-  <!--<Import Project="..\Tools\TypeScript\Microsoft.TypeScript.targets" />-->
+  <Import Project="..\Tools\TypeScript\Microsoft.TypeScript.targets" />
   <Import Project="..\Tools\Chutzpah\Chutzpah.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
