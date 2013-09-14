@@ -14,8 +14,7 @@ module Google {
             this.geocoder.geocode({'address': address}, this.geocodeCallback);
         }
 
-        private geocodeCallback(result: google.maps.GeocoderResult, status: google.maps.GeocoderStatus) {
-            alert(result[0].geometry.location);
+        private geocodeCallback(result: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) {            
         }
     }
 

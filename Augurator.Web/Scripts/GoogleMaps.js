@@ -11,7 +11,6 @@ var Google;
         };
 
         Geocoder.prototype.geocodeCallback = function (result, status) {
-            alert(result[0].geometry.location);
         };
         return Geocoder;
     })();

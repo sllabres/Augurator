@@ -138,6 +138,7 @@
     <None Include="JsTests\qunit.d.ts" />
     <None Include="JsTests\qunit.js" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <TypeScriptCompile Include="typings\jquery-2.0.3.d.ts" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <TypeScriptCompile Include="Scripts\GoogleMaps.ts" />
