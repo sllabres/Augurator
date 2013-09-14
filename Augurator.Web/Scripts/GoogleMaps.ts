@@ -1,7 +1,19 @@
 ///<reference path="..\typings\google.maps.d.ts"/>
 
-module GoogleMaps {
-    export class GoogleMap {
+module Google {
+
+    export class Geocoder {
+        private geocoder: google.maps.Geocoder;
+
+        constructor() {
+            this.geocoder = new google.maps.Geocoder();
+        }
+
+        public geocode() {
+        }
+    }
+
+    export class Map {
         private loadCompleteProxy: () => void;
         private map: google.maps.Map;
 

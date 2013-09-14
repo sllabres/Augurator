@@ -1,8 +1,18 @@
 ///<reference path="..\typings\google.maps.d.ts"/>
-var GoogleMaps;
-(function (GoogleMaps) {
-    var GoogleMap = (function () {
-        function GoogleMap(window) {
+var Google;
+(function (Google) {
+    var Geocoder = (function () {
+        function Geocoder() {
+            this.geocoder = new google.maps.Geocoder();
+        }
+        Geocoder.prototype.geocode = function () {
+        };
+        return Geocoder;
+    })();
+    Google.Geocoder = Geocoder;
+
+    var Map = (function () {
+        function Map(window) {
             var _this = this;
             this.loadCompleteProxy = function () {
                 _this.initialise();
@@ -10,7 +20,7 @@ var GoogleMaps;
 
             google.maps.event.addDomListener(window, 'load', this.loadCompleteProxy);
         }
-        GoogleMap.prototype.initialise = function () {
+        Map.prototype.initialise = function () {
             var mapOptions = {
                 zoom: 3,
                 center: new google.maps.LatLng(-34.397, 150.644),
@@ -19,7 +29,7 @@ var GoogleMaps;
 
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
         };
-        return GoogleMap;
+        return Map;
     })();
-    GoogleMaps.GoogleMap = GoogleMap;
-})(GoogleMaps || (GoogleMaps = {}));
+    Google.Map = Map;
+})(Google || (Google = {}));

@@ -6,14 +6,13 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATWa8EJgsmG2HDQahhFQGYo8sk1DHVS2M&v=3.exp&sensor=false" type="text/javascript"></script>
     <script src="~/Scripts/GoogleMaps.js" type="text/javascript"></script>
     <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map-canvas { height: 400px }
+      html { height: 90% }
+      body { height: 90%; margin: 0; padding: 0; }
+      #map-canvas { height: 100%; width: 80%; float: left; }
+      #addressList { height: 100%; width: 20%; float: left; }
     </style>
 </head>
-<body>
-    <div style="border: 1px solid black;">
-        @RenderBody()
-    </div>
+<body>    
+        @RenderBody()    
 </body>
 </html>

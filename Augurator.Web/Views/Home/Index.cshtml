@@ -4,10 +4,13 @@
 }
 
 
-<h1>Augurator</h1>
-   
-<script type="text/javascript">
-    var map = new GoogleMaps.GoogleMap(window);
-</script>
+<div id="addressList">
+    <h2>Address List</h2>
+    @Html.TextBox("address")
+    <input type="button" id="addAddress" onclick="" value="Add" />
+</div>
+<div id="map-canvas"></div>
 
-<div id="map-canvas" style="border: 1px solid black;"></div>
+<script type="text/javascript">
+    var map = new Google.Map(window);
+</script>
