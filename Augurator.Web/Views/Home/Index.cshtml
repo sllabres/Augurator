@@ -3,14 +3,14 @@
     Layout = "~/Views/Shared/SiteLayout.cshtml";
 }
 
-
 <div id="addressList">
     <h2>Address List</h2>
     @Html.TextBox("address")
-    <input type="button" id="addAddress" onclick="" value="Add" />
+    <input type="button" id="addAddress" onclick="geocode.geocode($('#address').val())" value="Add" />
 </div>
 <div id="map-canvas"></div>
 
-<script type="text/javascript">
+<script type="text/javascript">    
     var map = new Google.Map(window);
+    var geocode = new Google.Geocoder();        
 </script>

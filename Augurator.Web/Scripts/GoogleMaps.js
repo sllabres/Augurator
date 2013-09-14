@@ -1,11 +1,17 @@
 ///<reference path="..\typings\google.maps.d.ts"/>
+///<reference path="..\typings\jquery-2.0.3.d.ts"/>
 var Google;
 (function (Google) {
     var Geocoder = (function () {
         function Geocoder() {
             this.geocoder = new google.maps.Geocoder();
         }
-        Geocoder.prototype.geocode = function () {
+        Geocoder.prototype.geocode = function (address) {
+            this.geocoder.geocode({ 'address': address }, this.geocodeCallback);
+        };
+
+        Geocoder.prototype.geocodeCallback = function (result, status) {
+            alert(result[0].geometry.location);
         };
         return Geocoder;
     })();
@@ -22,8 +28,8 @@ var Google;
         }
         Map.prototype.initialise = function () {
             var mapOptions = {
-                zoom: 3,
-                center: new google.maps.LatLng(-34.397, 150.644),
+                zoom: 4,
+                center: new google.maps.LatLng(53.2527111, -2.4774508000000424),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 

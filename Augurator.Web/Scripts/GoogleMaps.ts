@@ -1,7 +1,8 @@
 ///<reference path="..\typings\google.maps.d.ts"/>
+///<reference path="..\typings\jquery-2.0.3.d.ts"/>
+
 
 module Google {
-
     export class Geocoder {
         private geocoder: google.maps.Geocoder;
 
@@ -9,7 +10,12 @@ module Google {
             this.geocoder = new google.maps.Geocoder();
         }
 
-        public geocode() {
+        public geocode(address: string) {           
+            this.geocoder.geocode({'address': address}, this.geocodeCallback);
+        }
+
+        private geocodeCallback(result: google.maps.GeocoderResult, status: google.maps.GeocoderStatus) {
+            alert(result[0].geometry.location);
         }
     }
 
@@ -27,8 +33,8 @@ module Google {
 
         private initialise() {                         
                 var mapOptions = {
-                    zoom: 3,
-                    center: new google.maps.LatLng(-34.397, 150.644),
+                    zoom: 4,
+                    center: new google.maps.LatLng(53.2527111, -2.4774508000000424),
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
 

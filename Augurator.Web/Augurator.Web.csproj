@@ -137,8 +137,12 @@
     <None Include="JsTests\Basic.Tests.js" />
     <None Include="JsTests\qunit.d.ts" />
     <None Include="JsTests\qunit.js" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <TypeScriptCompile Include="Scripts\GoogleMaps.ts" />
     <Content Include="Scripts\GoogleMaps.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="typings\google.maps.d.ts" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
