@@ -33,6 +33,7 @@ var Google;
             };
 
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            $('#address').geocomplete();
         };
         return Map;
     })();

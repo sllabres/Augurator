@@ -432,6 +432,7 @@ interface JQuery {
     toggleClass(swtch?: boolean): JQuery;
     toggleClass(func: (index: any, cls: any, swtch: any) => any): JQuery;
 
+    geocomplete(): any;
     val(): any;
     val(value: string[]): JQuery;
     val(value: string): JQuery;

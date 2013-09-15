@@ -1,7 +1,6 @@
 ///<reference path="..\typings\google.maps.d.ts"/>
 ///<reference path="..\typings\jquery-2.0.3.d.ts"/>
-
-
+                                               
 module Google {
     export class Geocoder {
         private geocoder: google.maps.Geocoder;
@@ -37,7 +36,8 @@ module Google {
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
 
-            this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);            
+            this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);       
+            $('#address').geocomplete();   
         }
     }
 }
