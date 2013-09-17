@@ -1,5 +1,6 @@
 ///<reference path="..\typings\google.maps.d.ts"/>
 ///<reference path="..\typings\jquery-2.0.3.d.ts"/>
+///<reference path="..\typings\tspSolver.d.ts"/>
                                                
 module Google {
     export class AddressFactory {
@@ -18,54 +19,71 @@ module Google {
         private map: google.maps.Map;
         private directionsService: google.maps.DirectionsService;
         private directionsDisplay: google.maps.DirectionsRenderer;
-        private setDirectionsProxy: (response: any, status: any) => void;
+        private solver: BpTspSolver;        
+        private roundTripCallbackProxy: (response: any) => void;        
 
         constructor(window: Window) {
-            this.loadCompleteProxy = () => {                
+            this.loadCompleteProxy = () => {
                 this.initialise();
-            }            
-
-            this.setDirectionsProxy = (response: any, status: any) => {
-                this.setDirections(response, status);
             }
 
-            google.maps.event.addDomListener(window, 'load', this.loadCompleteProxy);            
+            this.roundTripCallbackProxy = (response: any) => {
+                this.roundTripCallback(response);
+            }
+
+            google.maps.event.addDomListener(window, 'load', this.loadCompleteProxy);
         }
 
-        private initialise() {                         
-                var mapOptions = {
-                    zoom: 5,
-                    center: new google.maps.LatLng(53.2527111, -2.4774508000000424),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
+        private initialise() {
+            var mapOptions = {
+                zoom: 5,
+                center: new google.maps.LatLng(53.2527111, -2.4774508000000424),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
 
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             this.directionsService = new google.maps.DirectionsService();
-            this.directionsDisplay = new google.maps.DirectionsRenderer();            
+            this.directionsDisplay = new google.maps.DirectionsRenderer();
             this.directionsDisplay.setMap(this.map);
+            this.solver = new BpTspSolver(this.map, "");
+            this.solver.setDirectionUnits("m");
+            //this.solver.startOver();
         }
-        
+
         public zoomTo(latitude: number, longitude: number) {
             this.map.setZoom(17);
             this.map.panTo(new google.maps.LatLng(latitude, longitude));
         }
 
-        public getDirections(addressList: string[]) {            
-            var start = addressList[0];
-            var end = addressList[1];
-            var request = {
-                origin: start,
-                destination: end,
-                travelMode: google.maps.TravelMode.DRIVING
-            };
-
-            this.directionsService.route(request, this.setDirectionsProxy);            
+        public addWaypoint(latitude: number, longitude: number) {
+            var latLong = new google.maps.LatLng(latitude, longitude);
+            this.solver.addWaypoint(latLong, "Label");            
         }
 
-        private setDirections(response: any, status: any) {
-            if (status == google.maps.DirectionsStatus.OK) {                
-                this.directionsDisplay.setDirections(response);
-            }
+        public solveRoundTrip() {
+            this.solver.solveRoundTrip(this.roundTripCallbackProxy);
         }
+
+        private roundTripCallback(response: any) {  
+            this.directionsDisplay.setDirections(response.getGDirections());            
+        }    
+
+        //public getDirections(addressList: string[]) {            
+        //    var start = addressList[0];
+        //    var end = addressList[1];
+        //    var request = {
+        //        origin: start,
+        //        destination: end,
+        //        travelMode: google.maps.TravelMode.DRIVING
+        //    };
+
+        //    this.directionsService.route(request, this.setDirectionsProxy);            
+        //}
+
+        //private setDirections(response: any, status: any) {
+        //    if (status == google.maps.DirectionsStatus.OK) {                
+        //        this.directionsDisplay.setDirections(response);
+        //    }
+        //}
     }
 }

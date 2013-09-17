@@ -30,7 +30,7 @@
     var maxTripSentry = 2000000000; // Approx. 63 years., this long a route should not be reached...
     var avoidHighways = false; // Whether to avoid highways. False by default.
     var avoidTolls = false; // Whether to avoid toll roads. False by default.
-    var travelMode;
+    var travelMode = google.maps.DirectionsTravelMode.DRIVING;
     var distIndex;
     var waypoints = new Array();
     var addresses = new Array();

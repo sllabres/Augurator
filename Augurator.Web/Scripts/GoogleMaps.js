@@ -1,5 +1,6 @@
 ///<reference path="..\typings\google.maps.d.ts"/>
 ///<reference path="..\typings\jquery-2.0.3.d.ts"/>
+///<reference path="..\typings\tspSolver.d.ts"/>
 var Google;
 (function (Google) {
     var AddressFactory = (function () {
@@ -19,8 +20,8 @@ var Google;
                 _this.initialise();
             };
 
-            this.setDirectionsProxy = function (response, status) {
-                _this.setDirections(response, status);
+            this.roundTripCallbackProxy = function (response) {
+                _this.roundTripCallback(response);
             };
 
             google.maps.event.addDomListener(window, 'load', this.loadCompleteProxy);
@@ -36,6 +37,9 @@ var Google;
             this.directionsService = new google.maps.DirectionsService();
             this.directionsDisplay = new google.maps.DirectionsRenderer();
             this.directionsDisplay.setMap(this.map);
+            this.solver = new BpTspSolver(this.map, "");
+            this.solver.setDirectionUnits("m");
+            //this.solver.startOver();
         };
 
         Map.prototype.zoomTo = function (latitude, longitude) {
@@ -43,22 +47,17 @@ var Google;
             this.map.panTo(new google.maps.LatLng(latitude, longitude));
         };
 
-        Map.prototype.getDirections = function (addressList) {
-            var start = addressList[0];
-            var end = addressList[1];
-            var request = {
-                origin: start,
-                destination: end,
-                travelMode: google.maps.TravelMode.DRIVING
-            };
-
-            this.directionsService.route(request, this.setDirectionsProxy);
+        Map.prototype.addWaypoint = function (latitude, longitude) {
+            var latLong = new google.maps.LatLng(latitude, longitude);
+            this.solver.addWaypoint(latLong, "Label");
         };
 
-        Map.prototype.setDirections = function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                this.directionsDisplay.setDirections(response);
-            }
+        Map.prototype.solveRoundTrip = function () {
+            this.solver.solveRoundTrip(this.roundTripCallbackProxy);
+        };
+
+        Map.prototype.roundTripCallback = function (response) {
+            this.directionsDisplay.setDirections(response.getGDirections());
         };
         return Map;
     })();

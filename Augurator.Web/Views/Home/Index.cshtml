@@ -42,33 +42,25 @@
 
     $("#sortableAddressList").sortable({
         revert: true
-    })
-
-    $("#sortableDestinations").sortable({
-        revert: true,
-        containment: "parent"        
-    })
-    
-
-    $("#map-canvas").droppable({
-        drop: function (event, ui) {
-            $("#sortableDestinations")
-                .append($("<li>" + ui.draggable[0].innerHTML + "</li>"));
-
-            map.zoomTo($(ui.draggable[0]).attr("lat"), $(ui.draggable[0]).attr("long"));
-
-            checkRoute();
-        }
     });
 
-    function checkRoute() {
-        if ($("#sortableDestinations li").size() > 1) {
-            var addressList = new Array();
-            $("#sortableDestinations li").each(function () {
-                addressList.push(this.innerHTML);
-            });
+    $("#map-canvas").droppable({
+        drop: mapDrop
+    });
+    
+    function mapDrop(event, ui) {
+        $("#sortableDestinations")
+                .append($("<li>" + ui.draggable[0].innerHTML + "</li>"));
 
-            map.getDirections(addressList);
+        var latitude = $(ui.draggable[0]).attr("lat");
+        var longitude = $(ui.draggable[0]).attr("long");
+
+        map.zoomTo(latitude, longitude);
+
+        map.addWaypoint(latitude, longitude);
+
+        if ($("#sortableDestinations li").size() > 2) {
+            map.solveRoundTrip();
         }
     }
 
