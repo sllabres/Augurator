@@ -34,7 +34,7 @@
 
     function result(event, result) {
         if (clicked) {
-            addressFactory.create(result.formatted_address);
+            addressFactory.create(result.formatted_address, result.geometry.location.ob, result.geometry.location.pb);
         }
 
         clicked = false;
@@ -42,18 +42,20 @@
 
     $("#sortableAddressList").sortable({
         revert: true
-    });
+    }).hammer();
 
     $("#sortableDestinations").sortable({
         revert: true,
         containment: "parent"        
-    });
+    }).hammer();
     
 
     $("#map-canvas").droppable({
         drop: function (event, ui) {
             $("#sortableDestinations")
                 .append($("<li>" + ui.draggable[0].innerHTML + "</li>"));
+
+            map.zoomTo($(ui.draggable[0]).attr("lat"), $(ui.draggable[0]).attr("long"));
         }
     });
 

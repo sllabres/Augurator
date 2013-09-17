@@ -6,10 +6,10 @@ module Google {
         constructor() {
         }
 
-        public create(address: string) {
+        public create(address: string, latitude: number, longitude: number) {
             
             $("#sortableAddressList")
-                .append($("<li style='z-index: 1000'>" + address + "</li>"));
+                .append($("<li style='z-index: 1000' long='" + longitude + "' lat='" + latitude + "'>" + address + "</li>"));
         }
     }
 
@@ -27,12 +27,17 @@ module Google {
 
         private initialise() {                         
                 var mapOptions = {
-                    zoom: 4,
+                    zoom: 5,
                     center: new google.maps.LatLng(53.2527111, -2.4774508000000424),
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
 
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);            
+        }
+        
+        public zoomTo(latitude: number, longitude: number) {
+            this.map.setZoom(17);
+            this.map.panTo(new google.maps.LatLng(latitude, longitude));
         }
     }
 }
