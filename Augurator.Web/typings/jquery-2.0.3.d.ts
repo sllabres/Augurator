@@ -18,6 +18,11 @@ and limitations under the License.
 /*
     Interface for the AJAX setting that will configure the AJAX request
 */
+
+interface GeocompleteSettings {
+    detailsAttribute: string;
+}
+
 interface JQueryAjaxSettings {
     accepts?: any;
     async?: boolean;
@@ -433,6 +438,7 @@ interface JQuery {
     toggleClass(func: (index: any, cls: any, swtch: any) => any): JQuery;
 
     geocomplete(): any;
+    geocomplete(settings: GeocompleteSettings): any;
     val(): any;
     val(value: string[]): JQuery;
     val(value: string): JQuery;
@@ -809,6 +815,8 @@ interface JQuery {
     queue(queueName?: string): any[];
     queue(queueName: string, newQueueOrCallback: any): JQuery;
     queue(newQueueOrCallback: any): JQuery;
+    draggable(options: any): JQuery;      
+    sortable(options: any): JQuery;      
 }
 declare module "jquery" {
     export = $;

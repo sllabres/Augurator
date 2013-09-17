@@ -3,14 +3,58 @@
     Layout = "~/Views/Shared/SiteLayout.cshtml";
 }
 
-<div id="addressList">
+<div id="leftPane">
     <h2>Address List</h2>
-    @Html.TextBox("address")    
-    <input type="button" id="addAddress" onclick="geocode.geocode($('#address').val())" value="Add" />
+    @Html.TextBox("address", "", new { style="width: 200px" } )    
+    <input type="button" id="addAddress" onclick="addAdddressClick()" value="Add" />
+
+    <ul id="sortableAddressList" class="sortable">
+    </ul>        
 </div>
-<div id="map-canvas"></div>
+
+<div id="rightPane">
+    <ul id="sortableDestinations" class="sortable" style="height: 100px; width: 100%">
+    </ul>
+
+    <div id="map-canvas" style="width: 100%; height: 80%;"></div>
+</div>
 
 <script type="text/javascript">    
-    var map = new Google.Map(window);
-    var geocode = new Google.Geocoder();        
+    var map = new Google.Map(window);    
+    var addressFactory = new Google.AddressFactory();
+    var clicked = false;
+
+    $('#address').geocomplete();
+    $('#address').geocomplete().bind("geocode:result", result);
+
+    function addAdddressClick() {
+        clicked = true;
+        $('#address').trigger('geocode');        
+    }
+
+    function result(event, result) {
+        if (clicked) {
+            addressFactory.create(result.formatted_address);
+        }
+
+        clicked = false;
+    }
+
+    $("#sortableAddressList").sortable({
+        revert: true
+    });
+
+    $("#sortableDestinations").sortable({
+        revert: true,
+        containment: "parent"        
+    });
+    
+
+    $("#map-canvas").droppable({
+        drop: function (event, ui) {
+            $("#sortableDestinations")
+                .append($("<li>" + ui.draggable[0].innerHTML + "</li>"));
+        }
+    });
+
 </script>

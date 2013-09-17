@@ -2,18 +2,14 @@
 ///<reference path="..\typings\jquery-2.0.3.d.ts"/>
                                                
 module Google {
-    export class Geocoder {
-        private geocoder: google.maps.Geocoder;
-
+    export class AddressFactory {
         constructor() {
-            this.geocoder = new google.maps.Geocoder();
         }
 
-        public geocode(address: string) {           
-            this.geocoder.geocode({'address': address}, this.geocodeCallback);
-        }
-
-        private geocodeCallback(result: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) {            
+        public create(address: string) {
+            
+            $("#sortableAddressList")
+                .append($("<li style='z-index: 1000'>" + address + "</li>"));
         }
     }
 
@@ -36,8 +32,7 @@ module Google {
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
 
-            this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);       
-            $('#address').geocomplete();   
+            this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);            
         }
     }
 }

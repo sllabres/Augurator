@@ -2,19 +2,15 @@
 ///<reference path="..\typings\jquery-2.0.3.d.ts"/>
 var Google;
 (function (Google) {
-    var Geocoder = (function () {
-        function Geocoder() {
-            this.geocoder = new google.maps.Geocoder();
+    var AddressFactory = (function () {
+        function AddressFactory() {
         }
-        Geocoder.prototype.geocode = function (address) {
-            this.geocoder.geocode({ 'address': address }, this.geocodeCallback);
+        AddressFactory.prototype.create = function (address) {
+            $("#sortableAddressList").append($("<li style='z-index: 1000'>" + address + "</li>"));
         };
-
-        Geocoder.prototype.geocodeCallback = function (result, status) {
-        };
-        return Geocoder;
+        return AddressFactory;
     })();
-    Google.Geocoder = Geocoder;
+    Google.AddressFactory = AddressFactory;
 
     var Map = (function () {
         function Map(window) {
@@ -33,7 +29,6 @@ var Google;
             };
 
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-            $('#address').geocomplete();
         };
         return Map;
     })();
