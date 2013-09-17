@@ -21,7 +21,7 @@
 
 <script type="text/javascript">    
     var map = new Google.Map(window);    
-    var addressFactory = new Google.AddressFactory();
+    var addressFactory = new Google.AddressFactory();    
     var clicked = false;
 
     $('#address').geocomplete();
@@ -42,12 +42,12 @@
 
     $("#sortableAddressList").sortable({
         revert: true
-    }).hammer();
+    })
 
     $("#sortableDestinations").sortable({
         revert: true,
         containment: "parent"        
-    }).hammer();
+    })
     
 
     $("#map-canvas").droppable({
@@ -56,7 +56,20 @@
                 .append($("<li>" + ui.draggable[0].innerHTML + "</li>"));
 
             map.zoomTo($(ui.draggable[0]).attr("lat"), $(ui.draggable[0]).attr("long"));
+
+            checkRoute();
         }
     });
+
+    function checkRoute() {
+        if ($("#sortableDestinations li").size() > 1) {
+            var addressList = new Array();
+            $("#sortableDestinations li").each(function () {
+                addressList.push(this.innerHTML);
+            });
+
+            map.getDirections(addressList);
+        }
+    }
 
 </script>

@@ -19,6 +19,10 @@ var Google;
                 _this.initialise();
             };
 
+            this.setDirectionsProxy = function (response, status) {
+                _this.setDirections(response, status);
+            };
+
             google.maps.event.addDomListener(window, 'load', this.loadCompleteProxy);
         }
         Map.prototype.initialise = function () {
@@ -29,11 +33,32 @@ var Google;
             };
 
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            this.directionsService = new google.maps.DirectionsService();
+            this.directionsDisplay = new google.maps.DirectionsRenderer();
+            this.directionsDisplay.setMap(this.map);
         };
 
         Map.prototype.zoomTo = function (latitude, longitude) {
             this.map.setZoom(17);
             this.map.panTo(new google.maps.LatLng(latitude, longitude));
+        };
+
+        Map.prototype.getDirections = function (addressList) {
+            var start = addressList[0];
+            var end = addressList[1];
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            this.directionsService.route(request, this.setDirectionsProxy);
+        };
+
+        Map.prototype.setDirections = function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                this.directionsDisplay.setDirections(response);
+            }
         };
         return Map;
     })();

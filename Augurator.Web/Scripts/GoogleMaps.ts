@@ -16,11 +16,18 @@ module Google {
     export class Map {
         private loadCompleteProxy: () => void;
         private map: google.maps.Map;
+        private directionsService: google.maps.DirectionsService;
+        private directionsDisplay: google.maps.DirectionsRenderer;
+        private setDirectionsProxy: (response: any, status: any) => void;
 
         constructor(window: Window) {
             this.loadCompleteProxy = () => {                
                 this.initialise();
             }            
+
+            this.setDirectionsProxy = (response: any, status: any) => {
+                this.setDirections(response, status);
+            }
 
             google.maps.event.addDomListener(window, 'load', this.loadCompleteProxy);            
         }
@@ -32,12 +39,33 @@ module Google {
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
 
-            this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);            
+            this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            this.directionsService = new google.maps.DirectionsService();
+            this.directionsDisplay = new google.maps.DirectionsRenderer();            
+            this.directionsDisplay.setMap(this.map);
         }
         
         public zoomTo(latitude: number, longitude: number) {
             this.map.setZoom(17);
             this.map.panTo(new google.maps.LatLng(latitude, longitude));
+        }
+
+        public getDirections(addressList: string[]) {            
+            var start = addressList[0];
+            var end = addressList[1];
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            this.directionsService.route(request, this.setDirectionsProxy);            
+        }
+
+        private setDirections(response: any, status: any) {
+            if (status == google.maps.DirectionsStatus.OK) {                
+                this.directionsDisplay.setDirections(response);
+            }
         }
     }
 }

@@ -211,6 +211,7 @@
     <Content Include="Scripts\jquery.geocomplete.js" />
     <Content Include="Scripts\jquery.geocomplete.min.js" />
     <Content Include="Scripts\jquery.hammer.min.js" />
+    <Content Include="Scripts\tspSolver.js" />
     <Content Include="typings\google.maps.d.ts" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
