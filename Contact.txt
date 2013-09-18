@@ -1,0 +1,6 @@
+business address 
+business name
+contact name
+telephone number
+price paid per litre of oil
+preferred pickup (am / pm)
